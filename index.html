@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Cedrick Pacino | Creative Web Developer & UI/UX Designer</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>J</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #000000;
+            color: #E0E0E0;
+        }
+
+        .section-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .section-container:hover .section-background {
+            transform: scale(1.05);
+        }
+
+        .glass-card {
+            background: rgba(10, 10, 10, 0.55);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: background 0.3s, border 0.3s;
+        }
+        
+        .glass-card:hover {
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .active-nav {
+            color: #60A5FA; /* light blue */
+            text-shadow: 0 0 10px rgba(96, 165, 250, 0.5);
+        }
+        
+        .section-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+            z-index: -1;
+        }
+
+        .skill-bar-fill {
+            transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            width: 0%;
+        }
+
+        /* Modern Section Divider */
+        .section-divider {
+            position: relative;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .section-divider::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent);
+            box-shadow: 0 0 15px 0 rgba(96, 165, 250, 0.3);
+            z-index: 1;
+        }
+
+
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-blue-500/30">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-3xl font-bold text-white tracking-wider">JCP</a>
+            <div class="hidden md:flex items-center space-x-8 text-gray-300 font-light">
+                <a href="#about" class="nav-link hover:text-blue-400 transition-colors duration-300">About</a>
+                <a href="#experience" class="nav-link hover:text-blue-400 transition-colors duration-300">Experience</a>
+                <a href="#services" class="nav-link hover:text-blue-400 transition-colors duration-300">Services</a>
+                <a href="#process" class="nav-link hover:text-blue-400 transition-colors duration-300">Process</a>
+                <a href="#skills" class="nav-link hover:text-blue-400 transition-colors duration-300">Skills</a>
+                <a href="#testimonials" class="nav-link hover:text-blue-400 transition-colors duration-300">Testimonials</a>
+                <a href="#contact" class="nav-link hover:text-blue-400 transition-colors duration-300">Contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass-card mx-4 rounded-lg overflow-hidden">
+            <a href="#about" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">About</a>
+            <a href="#experience" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">Experience</a>
+            <a href="#services" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">Services</a>
+            <a href="#process" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">Process</a>
+            <a href="#skills" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">Skills</a>
+            <a href="#testimonials" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">Testimonials</a>
+            <a href="#contact" class="mobile-nav-link block py-3 px-6 text-sm hover:bg-white/5 transition-colors">Contact</a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- Hero Section -->
+        <section id="home" class="section-container min-h-screen flex flex-col justify-center items-center text-center relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=2072&auto=format&fit=crop" alt="Hero Background" class="section-background">
+            <div class="section-overlay"></div>
+            <div class="container mx-auto px-6 max-w-4xl relative z-10">
+                <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-4 reveal">
+                    John Cedrick Pacino
+                </h1>
+                <p class="text-xl md:text-2xl text-blue-300 font-light mb-8 reveal" style="transition-delay: 200ms;">
+                    Creative Web Developer & UI/UX Specialist
+                </p>
+                <p class="text-base text-gray-300 mb-10 max-w-2xl mx-auto reveal" style="transition-delay: 400ms;">
+                    Crafting beautiful, intuitive, and high-performing digital experiences from Quezon City to the world.
+                </p>
+                <div class="reveal" style="transition-delay: 600ms;">
+                    <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-full shadow-lg shadow-blue-600/30 transition-all duration-300 hover:shadow-blue-600/50 hover:-translate-y-1">
+                        Let's Collaborate
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2070&auto=format&fit=crop" alt="About Background" class="section-background">
+            <div class="section-overlay"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+                    <div class="reveal">
+                        <h2 class="text-4xl font-bold text-white mb-6">About Me</h2>
+                         <p class="text-gray-300 mb-4 text-lg">
+                           Hi, I'm John. Based in Quezon City, I'm a developer and virtual assistant who thrives on bringing order to chaos. My background in corporate process management taught me precision, which I now blend with my passion for creative web design.
+                        </p>
+                        <p class="text-gray-300 mb-6 text-lg">
+                           My focus is on delivering real results. I build clean, user-friendly websites and streamline workflows to make businesses run smoother. It's all about creating digital experiences that are not just beautiful, but are also smart and efficient.
+                        </p>
+                    </div>
+                    <div class="reveal" style="transition-delay: 200ms;">
+                         <div class="glass-card p-8 rounded-2xl">
+                             <img src="Picture.jpg" alt="John Cedrick Pacino" class="w-48 h-48 rounded-full mx-auto mb-4 border-4 border-white/20 object-cover">
+                             <h3 class="text-2xl font-semibold text-white text-center">John Cedrick Pacino</h3>
+                             <p class="text-blue-400 text-center">Quezon City, Philippines</p>
+                             <div class="mt-6 flex justify-center items-center space-x-4">
+                                <a href="https://www.linkedin.com/in/johnpacino0326" target="_blank" class="text-gray-300 hover:text-white p-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
+                                    <i data-lucide="linkedin" class="w-5 h-5"></i>
+                                </a>
+                                <a href="https://www.facebook.com/John.Fernandez0326/" target="_blank" class="text-gray-300 hover:text-white p-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
+                                    <i data-lucide="facebook" class="w-5 h-5"></i>
+                                </a>
+                                <a href="mailto:johncedrick.pacino@gmail.com" class="text-gray-300 hover:text-white p-3 rounded-full border border-gray-700 hover:bg-gray-800 hover:border-blue-500 transition-all duration-300 hover:-translate-y-1">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </a>
+                            </div>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop" alt="Experience Background" class="section-background">
+            <div class="section-overlay"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-white">My Professional Journey</h2>
+                    <p class="text-gray-400 mt-3 text-lg max-w-2xl mx-auto">A timeline of my corporate and freelance experience.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Corporate Experience Column -->
+                    <div class="reveal">
+                        <h3 class="text-2xl font-semibold text-white mb-8 text-center md:text-left">Corporate Experience</h3>
+                        <div class="space-y-8">
+                            <!-- Experience Item -->
+                            <div class="glass-card p-6 rounded-xl">
+                                <h4 class="text-lg font-semibold text-blue-300">Senior Process Executive</h4>
+                                <p class="text-sm text-gray-400 mb-2">Cognizant | Jul 2023 - Aug 2025</p>
+                                <p class="text-gray-300 text-sm">Fostered a positive team environment, developed member skills through coaching, and enhanced productivity by implementing efficient work processes and mentoring junior staff.</p>
+                            </div>
+                            <!-- Experience Item -->
+                            <div class="glass-card p-6 rounded-xl">
+                                <h4 class="text-lg font-semibold text-blue-300">Account Supervisor</h4>
+                                <p class="text-sm text-gray-400 mb-2">IBEX Global | Mar 2020 - Jun 2021</p>
+                                <p class="text-gray-300 text-sm">Oversaw account finances, contributed to strategic planning, and developed key customer relationships through diligent project monitoring and clear communication.</p>
+                            </div>
+                            <!-- Experience Item -->
+                             <div class="glass-card p-6 rounded-xl">
+                                <h4 class="text-lg font-semibold text-blue-300">Technical Support Representative</h4>
+                                <p class="text-sm text-gray-400 mb-2">Startek Solution | Feb 2018 - Feb 2020</p>
+                                <p class="text-gray-300 text-sm">Delivered exceptional customer service and improved satisfaction by providing timely and accurate technical support for various software and hardware issues.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- VA Experience Column -->
+                    <div class="reveal" style="transition-delay: 200ms;">
+                        <h3 class="text-2xl font-semibold text-white mb-8 text-center md:text-left">Freelance & VA Experience</h3>
+                        <div class="space-y-8">
+                            <!-- Experience Item -->
+                            <div class="glass-card p-6 rounded-xl">
+                                <h4 class="text-lg font-semibold text-blue-300">Web Developer</h4>
+                                <p class="text-sm text-gray-400 mb-2">Upwork (Remote) | Mar 2025 - Sep 2025</p>
+                                <p class="text-gray-300 text-sm">Wrote clean, efficient code (HTML, CSS, JavaScript) to develop user-facing features, build reusable code libraries, and ensure the technical feasibility of UI/UX designs.</p>
+                            </div>
+                            <!-- Experience Item -->
+                            <div class="glass-card p-6 rounded-xl">
+                                <h4 class="text-lg font-semibold text-blue-300">GHL Administrative Support</h4>
+                                <p class="text-sm text-gray-400 mb-2">Upwork (Remote) | May 2024 - Feb 2025</p>
+                                <p class="text-gray-300 text-sm">Configured sub-accounts, managed automated workflows, and performed updates to funnels and websites within the GoHighLevel builder.</p>
+                            </div>
+                             <!-- Experience Item -->
+                            <div class="glass-card p-6 rounded-xl">
+                                <h4 class="text-lg font-semibold text-blue-300">cPanel Specialist</h4>
+                                <p class="text-sm text-gray-400 mb-2">Upwork (Remote) | Jan 2021 - Feb 2022</p>
+                                <p class="text-gray-300 text-sm">Managed hosting accounts via WHM, provided client technical support (cPanel, email, DNS), and performed regular software updates and security patches.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Services Section -->
+        <section id="services" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+             <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Services Background" class="section-background">
+             <div class="section-overlay"></div>
+             <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-white">What I Do</h2>
+                    <p class="text-gray-400 mt-3 text-lg max-w-2xl mx-auto">Offering a hybrid of technical and administrative expertise.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                     <div class="reveal glass-card p-8 rounded-2xl text-center transition-all duration-300">
+                        <i data-lucide="layout-template" class="w-12 h-12 mx-auto mb-4 text-blue-400"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">UI/UX Design</h3>
+                        <p class="text-gray-400 text-sm">Designing intuitive, user-friendly interfaces that are both beautiful and functional, with a focus on creating seamless user journeys.</p>
+                    </div>
+                    <div class="reveal glass-card p-8 rounded-2xl text-center transition-all duration-300" style="transition-delay: 200ms;">
+                        <i data-lucide="code-2" class="w-12 h-12 mx-a
+uto mb-4 text-blue-400"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Web Development</h3>
+                        <p class="text-gray-400 text-sm">Building responsive, high-performance websites using modern technologies like Tailwind CSS and JavaScript frameworks.</p>
+                    </div>
+                    <div class="reveal glass-card p-8 rounded-2xl text-center transition-all duration-300" style="transition-delay: 400ms;">
+                        <i data-lucide="user-check" class="w-12 h-12 mx-auto mb-4 text-blue-400"></i>
+                        <h3 class="text-xl font-semibold text-white mb-2">Virtual Assistance</h3>
+                        <p class="text-gray-400 text-sm">Providing expert administrative and process support to streamline your operations and boost productivity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- My Process Section -->
+        <section id="process" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070&auto=format&fit=crop" alt="Process Background" class="section-background">
+            <div class="section-overlay"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-white">My Creative Process</h2>
+                    <p class="text-gray-400 mt-3 text-lg max-w-2xl mx-auto">A structured approach to ensure quality and success in every project.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Step 1 -->
+                    <div class="reveal glass-card p-8 rounded-2xl text-center">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
+                            <i data-lucide="compass" class="w-8 h-8 text-blue-300"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">1. Discovery</h3>
+                        <p class="text-gray-400 text-sm">We start by understanding your vision, goals, and audience to build a solid strategic foundation.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="reveal glass-card p-8 rounded-2xl text-center" style="transition-delay: 200ms;">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
+                           <i data-lucide="layout-template" class="w-8 h-8 text-blue-300"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">2. Design</h3>
+                        <p class="text-gray-400 text-sm">I create intuitive wireframes and high-fidelity mockups, focusing on a seamless user experience.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="reveal glass-card p-8 rounded-2xl text-center" style="transition-delay: 400ms;">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
+                            <i data-lucide="code-2" class="w-8 h-8 text-blue-300"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">3. Development</h3>
+                        <p class="text-gray-400 text-sm">The approved design is brought to life with clean, efficient code and modern technologies.</p>
+                    </div>
+                    <!-- Step 4 -->
+                    <div class="reveal glass-card p-8 rounded-2xl text-center" style="transition-delay: 600ms;">
+                        <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-white/20">
+                           <i data-lucide="rocket" class="w-8 h-8 text-blue-300"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-white mb-2">4. Launch</h3>
+                        <p class="text-gray-400 text-sm">After rigorous testing, your project is deployed. I provide support to ensure a smooth launch.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop" alt="Skills Background" class="section-background">
+            <div class="section-overlay"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-white">My Skillset</h2>
+                    <p class="text-gray-400 mt-3 text-lg">Tools and technologies I excel at.</p>
+                </div>
+                <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                    <!-- Skill Item -->
+                    <div class="reveal">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-semibold text-white">UI/UX Design (Figma, Canva)</h4>
+                            <span class="text-sm text-blue-300">90%</span>
+                        </div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-2.5">
+                            <div class="skill-bar-fill bg-blue-500 h-2.5 rounded-full" data-width="90%"></div>
+                        </div>
+                    </div>
+                     <!-- Skill Item -->
+                    <div class="reveal">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-semibold text-white">Tailwind CSS</h4>
+                            <span class="text-sm text-blue-300">95%</span>
+                        </div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-2.5">
+                            <div class="skill-bar-fill bg-blue-500 h-2.5 rounded-full" data-width="95%"></div>
+                        </div>
+                    </div>
+                     <!-- Skill Item -->
+                    <div class="reveal">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-semibold text-white">JavaScript</h4>
+                            <span class="text-sm text-blue-300">85%</span>
+                        </div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-2.5">
+                            <div class="skill-bar-fill bg-blue-500 h-2.5 rounded-full" data-width="85%"></div>
+                        </div>
+                    </div>
+                     <!-- Skill Item -->
+                    <div class="reveal">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-semibold text-white">Process Optimization</h4>
+                            <span class="text-sm text-blue-300">92%</span>
+                        </div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-2.5">
+                            <div class="skill-bar-fill bg-blue-500 h-2.5 rounded-full" data-width="92%"></div>
+                        </div>
+                    </div>
+                     <!-- Skill Item -->
+                    <div class="reveal">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-semibold text-white">GHL Automation</h4>
+                            <span class="text-sm text-blue-300">88%</span>
+                        </div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-2.5">
+                            <div class="skill-bar-fill bg-blue-500 h-2.5 rounded-full" data-width="88%"></div>
+                        </div>
+                    </div>
+                     <!-- Skill Item -->
+                    <div class="reveal">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-semibold text-white">Client Management</h4>
+                            <span class="text-sm text-blue-300">98%</span>
+                        </div>
+                        <div class="w-full bg-gray-700/50 rounded-full h-2.5">
+                            <div class="skill-bar-fill bg-blue-500 h-2.5 rounded-full" data-width="98%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1974&auto=format&fit=crop" alt="Testimonials Background" class="section-background">
+            <div class="section-overlay"></div>
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-white">What My Clients Say</h2>
+                    <p class="text-gray-400 mt-3 text-lg">Feedback from partners and clients I've worked with.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial Card -->
+                    <div class="reveal glass-card p-8 rounded-2xl">
+                        <div class="flex items-center mb-4 text-yellow-400">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic text-sm">"John is a game-changer. His ability to streamline our processes and develop a user-friendly website for us was incredible. A true professional with a diverse skill set."</p>
+                        <p class="font-bold text-white">- Alexandria Chen</p>
+                        <p class="text-xs text-gray-400">Creative Director, Nexus Studios</p>
+                    </div>
+                    <!-- Testimonial Card -->
+                    <div class="reveal glass-card p-8 rounded-2xl" style="transition-delay: 200ms;">
+                        <div class="flex items-center mb-4 text-yellow-400">
+                           <i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic text-sm">"Working with John was an absolute pleasure. His executive assistant skills are top-notch. He managed my calendar and emails flawlessly, freeing me up to focus on my core business."</p>
+                        <p class="font-bold text-white">- Benjamin Carter</p>
+                        <p class="text-xs text-gray-400">Lead Strategist, Quantum Leap</p>
+                    </div>
+                    <!-- Testimonial Card -->
+                    <div class="reveal glass-card p-8 rounded-2xl" style="transition-delay: 400ms;">
+                        <div class="flex items-center mb-4 text-yellow-400">
+                            <i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i><i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        </div>
+                        <p class="text-gray-300 mb-6 italic text-sm">"The social media campaigns John managed for us were outstanding. Our engagement and follower count grew significantly in just a few months. Highly recommended!"</p>
+                        <p class="font-bold text-white">- Emily R.</p>
+                        <p class="text-xs text-gray-400">Marketing Director</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-container section-divider relative py-20 md:py-32 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?q=80&w=2070&auto=format&fit=crop" alt="Contact Background" class="section-background">
+            <div class="section-overlay"></div>
+             <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center max-w-2xl mx-auto reveal">
+                    <h2 class="text-4xl font-bold text-white">Let's Create Together</h2>
+                    <p class="text-gray-400 mt-4 mb-8 text-lg">
+                        Have a project in mind or need an expert to streamline your workflow? I'm here to help. Reach out and let's discuss how we can achieve your goals.
+                    </p>
+                    <a href="mailto:johncedrick.pacino@gmail.com" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-full text-lg transition-all duration-300 hover:-translate-y-1 shadow-lg shadow-blue-600/30 hover:shadow-blue-600/50">
+                        Say Hello
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-900">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-500">
+            <p>&copy; 2025 John Cedrick Pacino. Designed & Built in Quezon City, Philippines.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // --- Mobile menu toggle ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // --- Sticky header on scroll ---
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('glass-card');
+            } else {
+                header.classList.remove('glass-card');
+            }
+        });
+
+        // --- Active nav link highlighting on scroll ---
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+                if(link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-nav');
+                }
+            });
+        });
+
+        // --- Scroll Reveal & Skill Bar Animation ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const skillBars = document.querySelectorAll('.skill-bar-fill');
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Animate skill bars when they become visible
+                    if (entry.target.querySelector('.skill-bar-fill')) {
+                        const bars = entry.target.querySelectorAll('.skill-bar-fill');
+                        bars.forEach(bar => {
+                            bar.style.width = bar.dataset.width;
+                        });
+                    }
+                    // For this effect, we don't unobserve so it can re-trigger
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>
+
+
